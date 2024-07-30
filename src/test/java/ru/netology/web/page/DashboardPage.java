@@ -8,7 +8,6 @@ import ru.netology.web.data.DataHelper;
 import static com.codeborne.selenide.Condition.text;
 
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -23,19 +22,15 @@ public class DashboardPage {
     heading.shouldBe(visible);
   }
 
-    public int getCardBalance(String maskedCardNumber) {
+  public int getCardBalance(String maskedCardNumber) {
     var text = cards.findBy(Condition.text(maskedCardNumber)).getText();
     return extractBalance(text);
 
   }
-    public int getCardBalance(int index) {
-    var text = cards.get(index).getText();
-    return extractBalance(text);
-  }
 
-  public VerificationPage selectCardToTransfer(DataHelper.CardInfo cardInfo) {
+  public TransferPage selectCardToTransfer(DataHelper.CardInfo cardInfo) {
     cards.findBy(Condition.attribute("data-test-id", cardInfo.getTestId())).$("button").click();
-    return new VerificationPage();
+    return new TransferPage();
   }
 
   public void reloadDashboardPage() {
