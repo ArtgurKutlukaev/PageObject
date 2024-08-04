@@ -29,7 +29,7 @@ public class MoneyTransferTest {
     firstCardInfo = getFirstCardInfo();
     secondCardInfo = getSecondCardInfo();
     firstCardBalance = dashboardPage.getCardBalance(getMaskedNumber(firstCardInfo.getCardNumber()));
-    secondCardBalance = dashboardPage.getCardBalance(getMaskedNumber(secondCardInfo.getCardNumber()));
+    secondCardBalance = dashboardPage.getCardBalance(1);
   }
 
   @Test
@@ -51,6 +51,7 @@ public class MoneyTransferTest {
     var amount = generateInvalidAmount(secondCardBalance);
     var transferPage = dashboardPage.selectCardToTransfer(firstCardInfo);
     transferPage.makeTransfer(String.valueOf(amount), secondCardInfo);
+    transferPage.findErrorMessage("Выполнена попытка перевода суммы, превышающий остаток на карте списания");
     dashboardPage.reloadDashboardPage();
     var actualBalanceFirstCard = dashboardPage.getCardBalance(getMaskedNumber(firstCardInfo.getCardNumber()));
     var actualBalanceSecondCard = dashboardPage.getCardBalance(getMaskedNumber(secondCardInfo.getCardNumber()));
