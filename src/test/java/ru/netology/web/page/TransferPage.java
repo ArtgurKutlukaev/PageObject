@@ -18,7 +18,6 @@ public class TransferPage {
   private final SelenideElement errorMessage = $("[data-test-id='error-notification'] _notification__content");
 
   public TransferPage() {
-
     transferHead.shouldBe(visible);
   }
 
